@@ -1,150 +1,208 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>WhatsNew SMS</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>WhatsNew SMS</title>
 
-  <style>
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-      font-family: Arial, sans-serif;
-    }
+<style>
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: Arial, sans-serif;
+}
 
-    body {
-      background: #e9edef;
-    }
+body {
+  background: #e9edef;
+}
 
-    .app {
-      max-width: 500px;
-      height: 100vh;
-      margin: auto;
-      background: white;
-      display: flex;
-      flex-direction: column;
-    }
+.app {
+  max-width: 500px;
+  height: 100vh;
+  margin: auto;
+  background: white;
+  display: flex;
+  flex-direction: column;
+}
 
-    .header {
-      background: #0879c9;
-      color: white;
-      padding: 18px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
+.header {
+  background: #0879c9;
+  color: white;
+  padding: 16px;
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
 
-    .header h1 {
-      font-size: 23px;
-    }
+.back {
+  font-size: 25px;
+  cursor: pointer;
+  display: none;
+}
 
-    .new-chat {
-      font-size: 25px;
-      cursor: pointer;
-    }
+.header h1 {
+  font-size: 22px;
+}
 
-    .search {
-      padding: 10px;
-      background: #f0f2f5;
-    }
+.search {
+  padding: 10px;
+  background: #f0f2f5;
+}
 
-    .search input {
-      width: 100%;
-      padding: 12px;
-      border: none;
-      border-radius: 20px;
-      outline: none;
-    }
+.search input {
+  width: 100%;
+  padding: 12px;
+  border: none;
+  border-radius: 20px;
+  outline: none;
+}
 
-    .chat {
-      display: flex;
-      align-items: center;
-      padding: 15px;
-      border-bottom: 1px solid #eee;
-      cursor: pointer;
-    }
+.chat-list {
+  flex: 1;
+}
 
-    .chat:hover {
-      background: #f5f5f5;
-    }
+.chat {
+  display: flex;
+  align-items: center;
+  padding: 15px;
+  border-bottom: 1px solid #eee;
+  cursor: pointer;
+}
 
-    .avatar {
-      width: 50px;
-      height: 50px;
-      border-radius: 50%;
-      background: #0879c9;
-      color: white;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      font-size: 22px;
-      margin-right: 15px;
-    }
+.chat:hover {
+  background: #f5f5f5;
+}
 
-    .chat-info h3 {
-      font-size: 17px;
-      margin-bottom: 5px;
-    }
+.avatar {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background: #0879c9;
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 22px;
+  margin-right: 15px;
+}
 
-    .chat-info p {
-      color: #777;
-      font-size: 14px;
-    }
+.chat-info h3 {
+  margin-bottom: 5px;
+}
 
-    .bottom {
-      margin-top: auto;
-      display: flex;
-      justify-content: space-around;
-      padding: 14px;
-      border-top: 1px solid #ddd;
-      background: white;
-    }
+.chat-info p {
+  color: #777;
+  font-size: 14px;
+}
 
-    .bottom button {
-      border: none;
-      background: none;
-      font-size: 15px;
-      cursor: pointer;
-    }
-  </style>
+.chat-screen {
+  display: none;
+  flex: 1;
+  flex-direction: column;
+  background: #e5ddd5;
+}
+
+.messages {
+  flex: 1;
+  padding: 15px;
+  overflow-y: auto;
+}
+
+.message {
+  background: white;
+  padding: 10px;
+  border-radius: 10px;
+  margin-bottom: 10px;
+  max-width: 75%;
+}
+
+.my-message {
+  background: #d9fdd3;
+  margin-left: auto;
+}
+
+.input-area {
+  display: flex;
+  padding: 10px;
+  background: white;
+  gap: 8px;
+}
+
+.input-area input {
+  flex: 1;
+  padding: 12px;
+  border: 1px solid #ddd;
+  border-radius: 20px;
+  outline: none;
+}
+
+.input-area button {
+  border: none;
+  background: #0879c9;
+  color: white;
+  width: 50px;
+  border-radius: 50%;
+  cursor: pointer;
+  font-size: 18px;
+}
+
+.bottom {
+  display: flex;
+  justify-content: space-around;
+  padding: 14px;
+  border-top: 1px solid #ddd;
+}
+
+.bottom button {
+  border: none;
+  background: none;
+  cursor: pointer;
+}
+</style>
 </head>
 
 <body>
 
-  <div class="app">
+<div class="app">
 
-    <div class="header">
-      <h1>WhatsNew SMS</h1>
-      <div class="new-chat">✏️</div>
-    </div>
+  <div class="header">
+    <div class="back" id="backButton" onclick="goBack()">←</div>
+    <h1 id="title">WhatsNew SMS</h1>
+  </div>
+
+  <div id="home">
 
     <div class="search">
       <input type="text" placeholder="Search chats">
     </div>
 
-    <div class="chat">
-      <div class="avatar">A</div>
-      <div class="chat-info">
-        <h3>Ali</h3>
-        <p>Hello! How are you?</p>
-      </div>
-    </div>
+    <div class="chat-list">
 
-    <div class="chat">
-      <div class="avatar">S</div>
-      <div class="chat-info">
-        <h3>Shahid</h3>
-        <p>See you tomorrow 👍</p>
+      <div class="chat" onclick="openChat('Ali','A')">
+        <div class="avatar">A</div>
+        <div class="chat-info">
+          <h3>Ali</h3>
+          <p>Hello! How are you?</p>
+        </div>
       </div>
-    </div>
 
-    <div class="chat">
-      <div class="avatar">F</div>
-      <div class="chat-info">
-        <h3>Family</h3>
-        <p>Good morning everyone ❤️</p>
+      <div class="chat" onclick="openChat('Shahid','S')">
+        <div class="avatar">S</div>
+        <div class="chat-info">
+          <h3>Shahid</h3>
+          <p>See you tomorrow 👍</p>
+        </div>
       </div>
+
+      <div class="chat" onclick="openChat('Family','F')">
+        <div class="avatar">F</div>
+        <div class="chat-info">
+          <h3>Family</h3>
+          <p>Good morning everyone ❤️</p>
+        </div>
+      </div>
+
     </div>
 
     <div class="bottom">
@@ -155,5 +213,38 @@
 
   </div>
 
-</body>
-</html>
+  <div class="chat-screen" id="chatScreen">
+
+    <div class="messages" id="messages">
+      <div class="message">
+        Hello 👋
+      </div>
+    </div>
+
+    <div class="input-area">
+      <input id="messageInput" type="text" placeholder="Type a message...">
+      <button onclick="sendMessage()">➤</button>
+    </div>
+
+  </div>
+
+</div>
+
+<script>
+
+function openChat(name, letter) {
+
+  document.getElementById("home").style.display = "none";
+
+  document.getElementById("chatScreen").style.display = "flex";
+
+  document.getElementById("backButton").style.display = "block";
+
+  document.getElementById("title").innerText = name;
+
+  document.getElementById("messageInput").focus();
+}
+
+function goBack() {
+
+  document.getElementById("chatScreen").style.display = "none";
