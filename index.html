@@ -88,7 +88,7 @@ body {
 }
 
 .chat-info h3 {
-  margin-bottom: 5px;
+  margin-bottom: 5px
 }
 
 .chat-info p {
@@ -187,7 +187,13 @@ body {
   </div>
 
   <div id="home">
-
+<div class="nav-buttons">
+  <button onclick="showTab('Chats')">Chat</button>
+  <button onclick="showTab('Status')">Status</button>
+  <button onclick="showTab('Calls')">Calls</button>
+  <button onclick="showTab('Group')">Group</button>
+  <button onclick="showTab('Lock')">Lock 🔒</button>
+</div>
     <div class="search">
       <input type="text" placeholder="Search chats">
     </div>
@@ -261,7 +267,14 @@ function goBack() {
 
   document.getElementById("chatScreen").style.display = "none";
 
-  
+  function showTab(tab) {
+  if (tab === "Chats") {
+    document.getElementById("home").style.display = "flex";
+    document.getElementById("chat-screen").style.display = "none";
+  } else {
+    alert(tab + " section abhi banani hai!");
+  }
+}
 document.getElementById("home").style.display = "flex";
 }
 function sendMessage() {
