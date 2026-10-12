@@ -281,18 +281,17 @@ function openChat(name, letter) {
 }
 
 function goBack() {
-
   document.getElementById("chatScreen").style.display = "none";
+  document.getElementById("home").style.display = "flex";
+}
 
-  function showTab(tab) {
+function showTab(tab) {
   if (tab === "Chats") {
     document.getElementById("home").style.display = "flex";
-    document.getElementById("chat-screen").style.display = "none";
+    document.getElementById("chatScreen").style.display = "none";
   } else {
     alert(tab + " section abhi banani hai!");
   }
-}
-document.getElementById("home").style.display = "flex";
 }
 function sendMessage() {
   const input = document.getElementById("messageInput");
