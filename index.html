@@ -443,16 +443,7 @@ savedMessages.forEach(function(item) {
     info.innerText = "Group Members: " + members;
 
     messages.appendChild(info);
-const savedMessages = JSON.parse(
-    localStorage.getItem(window.currentChatKey) || "[]"
-);
 
-savedMessages.forEach(function(item) {
-    const oldMessage = document.createElement("div");
-    oldMessage.className = item.className;
-    oldMessage.innerText = item.text;
-    messages.appendChild(oldMessage);
-});
     document.getElementById("messageInput").focus();
 }
 </script>
