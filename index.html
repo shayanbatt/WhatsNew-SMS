@@ -393,6 +393,21 @@ message.className = "message my-message";
   message.innerText = text;
 
   messages.appendChild(message);
+  if (window.currentChatKey) {
+    const saved = JSON.parse(
+        localStorage.getItem(window.currentChatKey) || "[]"
+    );
+
+    saved.push({
+        text: message.innerText,
+        className: message.className
+    });
+
+    localStorage.setItem(
+        window.currentChatKey,
+        JSON.stringify(saved)
+    );
+}
   setTimeout(function() {
   const reply = document.createElement("div");
   reply.className = "message";
@@ -413,7 +428,16 @@ window.currentChatKey = "group_" + groupName;
 
     const messages = document.getElementById("messages");
     messages.innerHTML = "";
+const savedMessages = JSON.parse(
+    localStorage.getItem(window.currentChatKey) || "[]"
+);
 
+savedMessages.forEach(function(item) {
+    const oldMessage = document.createElement("div");
+    oldMessage.className = item.className;
+    oldMessage.innerText = item.text;
+    messages.appendChild(oldMessage);
+});
     const info = document.createElement("div");
     info.className = "message";
     info.innerText = "Group Members: " + members;
