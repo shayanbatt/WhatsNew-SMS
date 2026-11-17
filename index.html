@@ -330,7 +330,24 @@ function showTab(tab) {
             <p>No groups created yet.</p>
         </div>
     `;
+} else if (tab === "Calls" || tab === "Call") {
+    tabScreen.innerHTML = `
+        <h2>📞 Calls</h2>
+        <div style="padding:15px;">
+            <h3>Recent Calls</h3>
+            <p>📞 No calls yet</p>
+            <hr>
+            <button onclick="alert('Voice calling feature coming soon!')">
+                📞 Voice Call
+            </button>
+            <button onclick="alert('Video calling feature coming soon!')">
+                🎥 Video Call
+            </button>
+        </div>
+    `;
 } else {
+    alert(tab + ' section abhi banani hai!');
+} } else {
     tabScreen.innerHTML = "<h2>" + tab + "</h2><p>Coming soon...</p>";
   }
 }
