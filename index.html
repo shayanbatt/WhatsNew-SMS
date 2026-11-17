@@ -321,9 +321,50 @@ function showTab(tab) {
       <p>Ali - Hello everyone 👋</p>
       <p>Shahid - Have a nice day 😊</p>
     `;
-  } else {
+} else if (tab === "Groups") {
+    tabScreen.innerHTML = `
+        <h2>My Groups</h2>
+        <button onclick="createGroup()">➕ Create New Group</button>
+        <hr>
+        <div id="groupList">
+            <p>No groups created yet.</p>
+        </div>
+    `;
+} else {
     tabScreen.innerHTML = "<h2>" + tab + "</h2><p>Coming soon...</p>";
   }
+}
+  function createGroup() {
+    const groupName = prompt("Enter Group Name:");
+
+    if (!groupName || groupName.trim() === "") {
+        return;
+    }
+
+    const members = prompt("Enter Members Names:") || "";
+
+    const groupList = document.getElementById("groupList");
+
+    if (!groupList) return;
+
+    if (groupList.innerText.includes("No groups created yet.")) {
+        groupList.innerHTML = "";
+    }
+
+    const groupItem = document.createElement("div");
+    groupItem.style.padding = "12px";
+    groupItem.style.borderBottom = "1px solid #ddd";
+
+    const title = document.createElement("h3");
+    title.textContent = "👥 " + groupName;
+
+    const memberText = document.createElement("p");
+    memberText.textContent = "Members: " + members;
+
+    groupItem.appendChild(title);
+    groupItem.appendChild(memberText);
+
+    groupList.appendChild(groupItem);
 }
 function addStatus() {
   const statusText = prompt("Apna status likho:");
