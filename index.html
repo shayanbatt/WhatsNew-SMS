@@ -357,7 +357,11 @@ function showTab(tab) {
 
     const title = document.createElement("h3");
     title.textContent = "👥 " + groupName;
+title.style.cursor = "pointer";
 
+title.onclick = function() {
+    openGroupChat(groupName, members);
+};
     const memberText = document.createElement("p");
     memberText.textContent = "Members: " + members;
 
