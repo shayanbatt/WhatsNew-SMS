@@ -398,4 +398,24 @@ message.className = "message my-message";
   input.value = "";
   messages.scrollTop = messages.scrollHeight;
 }
+function openGroupChat(groupName, members) {
+    document.getElementById("home").style.display = "none";
+
+    document.getElementById("chatScreen").style.display = "flex";
+
+    document.getElementById("backButton").style.display = "block";
+
+    document.getElementById("title").innerText = groupName;
+
+    const messages = document.getElementById("messages");
+    messages.innerHTML = "";
+
+    const info = document.createElement("div");
+    info.className = "message";
+    info.innerText = "Group Members: " + members;
+
+    messages.appendChild(info);
+
+    document.getElementById("messageInput").focus();
+}
 </script>
