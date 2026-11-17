@@ -268,7 +268,7 @@ body {
 <script>
 
 function openChat(name, letter) {
-
+window.currentChatKey = null;
   document.getElementById("home").style.display = "none";
 
   document.getElementById("chatScreen").style.display = "flex";
@@ -404,7 +404,7 @@ message.className = "message my-message";
 }
 function openGroupChat(groupName, members) {
     document.getElementById("home").style.display = "none";
-
+window.currentChatKey = "group_" + groupName;
     document.getElementById("chatScreen").style.display = "flex";
 
     document.getElementById("backButton").style.display = "block";
@@ -419,7 +419,16 @@ function openGroupChat(groupName, members) {
     info.innerText = "Group Members: " + members;
 
     messages.appendChild(info);
+const savedMessages = JSON.parse(
+    localStorage.getItem(window.currentChatKey) || "[]"
+);
 
+savedMessages.forEach(function(item) {
+    const oldMessage = document.createElement("div");
+    oldMessage.className = item.className;
+    oldMessage.innerText = item.text;
+    messages.appendChild(oldMessage);
+});
     document.getElementById("messageInput").focus();
 }
 </script>
