@@ -286,70 +286,81 @@ function goBack() {
 }
 
 function showTab(tab) {
-  const home = document.getElementById("home");
-  const chatScreen = document.getElementById("chatScreen");
+    const home = document.getElementById("home");
+    const chatScreen = document.getElementById("chatScreen");
+    let tabScreen = document.getElementById("tabScreen");
 
-  let tabScreen = document.getElementById("tabScreen");
+    if (tab === "Chats") {
+        home.style.display = "flex";
+        chatScreen.style.display = "none";
+        if (tabScreen) tabScreen.style.display = "none";
+        return;
+    }
 
-  if (tab === "Chats") {
-    home.style.display = "flex";
+    home.style.display = "none";
     chatScreen.style.display = "none";
-    if (tabScreen) tabScreen.style.display = "none";
-    return;
-  }
 
-  home.style.display = "none";
-  chatScreen.style.display = "none";
+    if (!tabScreen) {
+        tabScreen = document.createElement("div");
+        tabScreen.id = "tabScreen";
+        tabScreen.style.background = "white";
+        tabScreen.style.padding = "20px";
+        tabScreen.style.minHeight = "400px";
+        home.parentNode.insertBefore(tabScreen, home.nextSibling);
+    }
 
-  if (!tabScreen) {
-    tabScreen = document.createElement("div");
-    tabScreen.id = "tabScreen";
-    tabScreen.style.background = "white";
-    tabScreen.style.padding = "20px";
-    tabScreen.style.minHeight = "400px";
-    home.parentNode.insertBefore(tabScreen, home.nextSibling);
-  }
+    tabScreen.style.display = "block";
 
-  tabScreen.style.display = "block";
-
-  if (tab === "Status") {
-    tabScreen.innerHTML = `
-      <h2>Updates</h2>
-      <h3>My Status</h3>
-    <button onclick="addStatus()">➕ Add a status</button>
-      <hr>
-      <p>Ali - Hello everyone 👋</p>
-      <p>Shahid - Have a nice day 😊</p>
-    `;
-} else if (tab === "Groups" || tab === "Group") {
-    tabScreen.innerHTML = `
-        <h2>My Groups</h2>
-        <button onclick="createGroup()">➕ Create New Group</button>
-        <hr>
-        <div id="groupList">
-            <p>No groups created yet.</p>
-        </div>
-    `;
-} else if (tab === "Calls" || tab === "Call") {
-    tabScreen.innerHTML = `
-        <h2>📞 Calls</h2>
-        <div style="padding:15px;">
-            <h3>Recent Calls</h3>
-            <p>📞 No calls yet</p>
+    if (tab === "Status" || tab === "Updates") {
+        tabScreen.innerHTML = `
+            <h2>Updates</h2>
+            <h3>My Status</h3>
+            <button onclick="alert('Add Status feature coming soon!')">
+                + Add a status
+            </button>
             <hr>
-            <button onclick="alert('Voice calling feature coming soon!')">
-                📞 Voice Call
-            </button>
-            <button onclick="alert('Video calling feature coming soon!')">
-                🎥 Video Call
-            </button>
-        </div>
-    `;
-} else {
-    alert(tab + ' section abhi banani hai!');
-} 
-   
-  }
+            <p>Ali - Hello everyone 👋</p>
+            <p>Shahid - Have a nice day 👍</p>
+        `;
+    }
+    else if (tab === "Groups" || tab === "Group") {
+        tabScreen.innerHTML = `
+            <h2>My Groups</h2>
+            <button onclick="createGroup()">+ Create New Group</button>
+            <hr>
+            <div id="groupList">
+                <p>No groups created yet.</p>
+            </div>
+        `;
+    }
+    else if (tab === "Calls" || tab === "Call") {
+        tabScreen.innerHTML = `
+            <h2>📞 Calls</h2>
+            <div style="padding:15px;">
+                <h3>Recent Calls</h3>
+                <p>📞 No calls yet</p>
+                <hr>
+                <button onclick="alert('Voice calling feature coming soon!')">
+                    📞 Voice Call
+                </button>
+                <button onclick="alert('Video calling feature coming soon!')">
+                    📹 Video Call
+                </button>
+            </div>
+        `;
+    }
+    else if (tab === "Lock") {
+        tabScreen.innerHTML = `
+            <h2>🔒 Lock</h2>
+            <p>Lock feature coming soon.</p>
+        `;
+    }
+    else {
+        tabScreen.innerHTML = `
+            <h2>${tab}</h2>
+            <p>Coming soon...</p>
+        `;
+    }
 }
   function createGroup() {
     const groupName = prompt("Enter Group Name:");
