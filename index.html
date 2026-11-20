@@ -350,11 +350,26 @@ function showTab(tab) {
         `;
     }
     else if (tab === "Lock") {
-        tabScreen.innerHTML = `
-            <h2>🔒 Lock</h2>
-            <p>Lock feature coming soon.</p>
-        `;
-    }
+    tabScreen.innerHTML = `
+        <h2>🔒 App Lock</h2>
+        <p>Protect your chats with a PIN.</p>
+
+        <button onclick="setAppPin()">
+            🔑 Set PIN
+        </button>
+
+        <button onclick="lockApp()">
+            🔒 Lock Now
+        </button>
+
+        <button onclick="unlockApp()">
+            🔓 Unlock
+        </button>
+
+        <hr>
+        <p id="lockMessage">Your app is protected.</p>
+    `;
+}
     else {
         tabScreen.innerHTML = `
             <h2>${tab}</h2>
