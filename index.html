@@ -480,7 +480,12 @@ function addStatus() {
 
   const message = document.createElement("div");
 message.className = "message my-message";
-  message.innerText = text;
+ setTimeout(function() {
+    const reply = document.createElement("div");
+    reply.className = "message";
+    reply.innerText = "Ali: Haan bhai, bolo! 😊";
+    messages.appendChild(reply);
+}, 1000);
 
   messages.appendChild(message);
   if (window.currentChatKey) {
@@ -498,12 +503,7 @@ message.className = "message my-message";
         JSON.stringify(saved)
     );
 }
-  setTimeout(function() {
-  const reply = document.createElement("div");
-  reply.className = "message";
-  reply.innerText = "Ali: Haan bhai, bolo! 😊";
-  messages.appendChild(reply);
-}, 1000);
+ 
   input.value = "";
   messages.scrollTop = messages.scrollHeight;
 }
