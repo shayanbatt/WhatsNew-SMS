@@ -369,6 +369,9 @@ function showTab(tab) {
         <hr>
         <p id="lockMessage">Your app is protected.</p>
     `;
+      tabScreen.querySelectorAll("button")[0].onclick = setAppPin;
+tabScreen.querySelectorAll("button")[1].onclick = lockApp;
+tabScreen.querySelectorAll("button")[2].onclick = unlockApp;
 }
     else {
         tabScreen.innerHTML = `
