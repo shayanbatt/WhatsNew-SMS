@@ -377,6 +377,50 @@ function showTab(tab) {
         `;
     }
 }
+  function setAppPin() {
+    const pin = prompt("Create 4-digit PIN:");
+
+    if (!pin) return;
+
+    if (!/^\d{4}$/.test(pin)) {
+        alert("PIN must be exactly 4 digits!");
+        return;
+    }
+
+    localStorage.setItem("appPin", pin);
+    alert("PIN successfully set!");
+}
+
+function lockApp() {
+    const pin = localStorage.getItem("appPin");
+
+    if (!pin) {
+        alert("First set your PIN!");
+        return;
+    }
+
+    document.getElementById("lockMessage").innerText =
+        "App is locked!";
+}
+
+function unlockApp() {
+    const savedPin = localStorage.getItem("appPin");
+
+    if (!savedPin) {
+        alert("First set your PIN!");
+        return;
+    }
+
+    const enteredPin = prompt("Enter your PIN:");
+
+    if (enteredPin === savedPin) {
+        document.getElementById("lockMessage").innerText =
+            "App unlocked successfully!";
+        alert("Correct PIN!");
+    } else {
+        alert("Wrong PIN!");
+    }
+}
   function createGroup() {
     const groupName = prompt("Enter Group Name:");
 
