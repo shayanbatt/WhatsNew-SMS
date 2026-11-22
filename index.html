@@ -480,7 +480,8 @@ function addStatus() {
 
   const message = document.createElement("div");
 message.className = "message my-message";
- setTimeout(function() {
+message.innerText = text; 
+  setTimeout(function() {
     const reply = document.createElement("div");
     reply.className = "message";
     reply.innerText = "Ali: Haan bhai, bolo! 😊";
