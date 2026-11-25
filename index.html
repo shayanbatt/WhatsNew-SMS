@@ -277,7 +277,7 @@ body {
 <input id="messageInput" type="text" placeholder="Type a message...">
   <button type="button" onclick="document.getElementById('mediaInput').click()">📎</button>
 
-<input type="file" id="mediaInput" accept="image/,video/,audio/*" hidden>
+<input type="file" id="mediaInput" accept="image/,video/,audio/*" hidden onchange="handleMedia(event)">
  <button onclick="sendMessage()">➤</button 
 
 </div>
@@ -525,6 +525,41 @@ message.innerText = text;
   input.value = "";
   messages.scrollTop = messages.scrollHeight;
 }
+function handleMedia(event) {
+  const file = event.target.files[0];
+  if (!file) return;
+
+  const messages = document.getElementById("messages");
+  const message = document.createElement("div");
+  message.className = "message my-message";
+
+  const url = URL.createObjectURL(file);
+  let media;
+
+  if (file.type.startsWith("image/")) {
+    media = document.createElement("img");
+    media.src = url;
+  } else if (file.type.startsWith("video/")) {
+    media = document.createElement("video");
+    media.controls = true;
+    media.src = url;
+  } else if (file.type.startsWith("audio/")) {
+    media = document.createElement("audio");
+    media.controls = true;
+    media.src = url;
+  } else {
+    alert("Unsupported file");
+    return;
+  }
+
+  media.style.maxWidth = "220px";
+  media.style.display = "block";
+  message.appendChild(media);
+  messages.appendChild(message);
+  messages.scrollTop = messages.scrollHeight;
+
+  event.target.value = "";
+}  
 function openGroupChat(groupName, members) {
     document.getElementById("home").style.display = "none";
 window.currentChatKey = "group_" + groupName;
