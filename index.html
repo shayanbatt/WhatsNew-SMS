@@ -493,11 +493,35 @@ function addStatus() {
   const messages = document.getElementById("messages");
   const text = input.value.trim();
 
-  if (text === "") return;
+ if (text === "" && !selectedMedia) return;
 
   const message = document.createElement("div");
 message.className = "message my-message";
-message.innerText = text; 
+message.innerText = text; if (selectedMedia) {
+  const url = URL.createObjectURL(selectedMedia);
+  let media;
+
+  if (selectedMedia.type.startsWith("image/")) {
+    media = document.createElement("img");
+    media.src = url;
+  } else if (selectedMedia.type.startsWith("video/")) {
+    media = document.createElement("video");
+    media.src = url;
+    media.controls = true;
+  } else if (selectedMedia.type.startsWith("audio/")) {
+    media = document.createElement("audio");
+    media.src = url;
+    media.controls = true;
+  }
+
+  if (media) {
+    media.style.maxWidth = "220px";
+    message.appendChild(media);
+  }
+
+  selectedMedia = null;
+}
+  
   setTimeout(function() {
     const reply = document.createElement("div");
     reply.className = "message";
@@ -525,34 +549,16 @@ message.innerText = text;
   input.value = "";
   messages.scrollTop = messages.scrollHeight;
 }
+let selectedMedia = null;
+
 function handleMedia(event) {
-  const file = event.target.files[0];
-  if (!file) return;
-
-  const messages = document.getElementById("messages");
-  const message = document.createElement("div");
-  message.className = "message my-message";
-
-  const url = URL.createObjectURL(file);
-  let media;
-
-  if (file.type.startsWith("image/")) {
-    media = document.createElement("img");
-    media.src = url;
-  } else if (file.type.startsWith("video/")) {
-    media = document.createElement("video");
-    media.controls = true;
-    media.src = url;
-  } else if (file.type.startsWith("audio/")) {
-    media = document.createElement("audio");
-    media.controls = true;
-    media.src = url;
-  } else {
-    alert("Unsupported file");
-    return;
+  selectedMedia = event.target.files[0];
+  if (selectedMedia) {
+    alert("Photo selected. Now press Send.");
   }
+}
 
-  media.style.maxWidth = "220px";
+
   media.style.display = "block";
   message.appendChild(media);
   messages.appendChild(message);
